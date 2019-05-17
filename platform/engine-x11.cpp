@@ -29,16 +29,29 @@
 Engine::Engine(){}
 Engine::~Engine(){}
 
+bool Engine::isRunning()
+{
+    return running;
+}
+
 void Engine::initialize(const char* title)
 {
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
-        SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, 0);
+        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
+
+        if(!window)
+        {
+            std::cout << "ERROR: SDL could not create window." << std::endl;
+            return;
+        }
+
+        SDL_GL_CreateContext(window);
         
         glewExperimental = GL_TRUE;
         glewInit();
 
-        glClearColor(0,0,1,1);
+        std::cout << "Hydrogen Engine initialized. Hello World!!" << std::endl;
     }
     else
     {
@@ -46,4 +59,25 @@ void Engine::initialize(const char* title)
         std::cout << "ERROR: SDL could not initialize." << std::endl;
         return;
     }
+}
+
+//cleans up everything and quits
+void Engine::quit()
+{
+    running = false;
+
+    SDL_DestroyWindow(window);
+    SDL_GL_DeleteContext(glcontext);
+    SDL_Quit();
+
+    std::cout << "Hydrogen Engine quit. Bye~!" << std::endl;
+}
+
+//renders a frame (call in main loop, once per frame)
+void Engine::render()
+{
+    glClearColor(0,0,1,1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    SDL_GL_SwapWindow(window);
 }

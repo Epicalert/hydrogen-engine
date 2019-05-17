@@ -28,5 +28,22 @@ int main()
 
     engine->initialize("Hydrogen Engine");
 
+    while(engine->isRunning())
+    {
+        SDL_Event event;
+		while (SDL_PollEvent(&event))
+        {
+            if(event.type == SDL_QUIT)
+            {
+                engine->quit();
+                break;
+            }
+            else
+            {
+                engine->render();
+            }
+        }
+    }
+
     return 0;
 }

@@ -26,9 +26,17 @@ class Engine{
     public:
         Engine();
         ~Engine();
+
+        bool isRunning();
+
         void initialize(const char* title);
+        void quit();
+
+        void render();
     private:
+        bool running = true;
+        
         SDL_Window *window;
-        SDL_Renderer *renderer;
+        SDL_GLContext *glcontext;
 };
 #endif
