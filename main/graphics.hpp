@@ -17,35 +17,17 @@
    limitations under the License.
 */
 
-#define PLAT_X11
-#ifdef PLAT_X11
-#include "../platform/engine-x11.hpp"
+#ifndef GRAPHICS_HPP
+#define GRAPHICS_HPP
+
+#include <GL/glew.h>
+
+void hInitGraphics();
+void hCleanupGraphics();
+
+void hPrepareBuffers();
+int hLoadShader(const char* filename);
+
+std::string hLoadTextFile(std::string filename);
+
 #endif
-
-#include <SDL2/SDL.h>
-
-int main()
-{
-    Engine *engine = new Engine();
-
-    engine->initialize("Hydrogen Engine");
-
-    while(engine->isRunning())
-    {
-        SDL_Event event;
-		while (SDL_PollEvent(&event))
-        {
-            if(event.type == SDL_QUIT)
-            {
-                engine->quit();
-                break;
-            }
-            else
-            {
-                engine->render();
-            }
-        }
-    }
-
-    return 0;
-}

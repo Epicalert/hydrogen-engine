@@ -25,6 +25,7 @@
 #include <iostream>
 
 #include "engine-x11.hpp"
+#include "../main/graphics.hpp"
 
 Engine::Engine(){}
 Engine::~Engine(){}
@@ -51,6 +52,8 @@ void Engine::initialize(const char* title)
         glewExperimental = GL_TRUE;
         glewInit();
 
+        hInitGraphics();
+
         std::cout << "Hydrogen Engine initialized. Hello World!!" << std::endl;
     }
     else
@@ -70,6 +73,8 @@ void Engine::quit()
     SDL_GL_DeleteContext(glcontext);
     SDL_Quit();
 
+    hCleanupGraphics();
+
     std::cout << "Hydrogen Engine quit. Bye~!" << std::endl;
 }
 
@@ -78,6 +83,8 @@ void Engine::render()
 {
     glClearColor(0,0,1,1);
     glClear(GL_COLOR_BUFFER_BIT);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 
     SDL_GL_SwapWindow(window);
 }
