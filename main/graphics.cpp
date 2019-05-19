@@ -70,7 +70,6 @@ void hPrepareBuffers()
     glEnableVertexAttribArray(positionAttributeIndex);
 }
 
-//compiles a shader and returns its shader program id
 int hLoadShader(const char* filename)
 {
     //load file data

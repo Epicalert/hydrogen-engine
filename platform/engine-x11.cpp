@@ -64,7 +64,6 @@ void Engine::initialize(const char* title)
     }
 }
 
-//cleans up everything and quits
 void Engine::quit()
 {
     running = false;
@@ -78,7 +77,6 @@ void Engine::quit()
     std::cout << "Hydrogen Engine quit. Bye~!" << std::endl;
 }
 
-//renders a frame (call in main loop, once per frame)
 void Engine::render()
 {
     glClearColor(0,0,1,1);

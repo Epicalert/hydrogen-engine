@@ -27,11 +27,15 @@ class Engine{
         Engine();
         ~Engine();
 
+        //returns true if the game loop should be running
         bool isRunning();
 
+        //initializes the engine
         void initialize(const char* title);
+        //cleans up everything and quits
         void quit();
 
+        //renders a frame (call in main loop, once per frame)
         void render();
     private:
         bool running = true;

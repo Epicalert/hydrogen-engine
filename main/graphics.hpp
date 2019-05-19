@@ -22,12 +22,17 @@
 
 #include <GL/glew.h>
 
+//initializes the graphics library
 void hInitGraphics();
+//cleans up the graphics library
 void hCleanupGraphics();
 
+//prepares buffers and enables them
 void hPrepareBuffers();
+//loads a shader and returns its id
 int hLoadShader(const char* filename);
 
+//loads a text file and returns its contents
 std::string hLoadTextFile(std::string filename);
 
 #endif
