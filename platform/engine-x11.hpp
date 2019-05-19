@@ -21,6 +21,7 @@
 #define ENGINE_HPP
 
 #include <SDL2/SDL.h>
+#include "../main/engineSettings.hpp"
 
 class Engine{
     public:
@@ -42,5 +43,7 @@ class Engine{
         
         SDL_Window *window;
         SDL_GLContext *glcontext;
+
+        EngineSettings *settings;
 };
 #endif

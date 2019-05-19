@@ -37,9 +37,11 @@ bool Engine::isRunning()
 
 void Engine::initialize(const char* title)
 {
+    settings = new EngineSettings();
+
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
-        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
+        window = SDL_CreateWindow(settings->GetTitle(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, settings->GetResX(), settings->GetResY(), SDL_WINDOW_OPENGL);
 
         if(!window)
         {
@@ -73,6 +75,8 @@ void Engine::quit()
     SDL_Quit();
 
     hCleanupGraphics();
+
+    settings->~EngineSettings();
 
     std::cout << "Hydrogen Engine quit. Bye~!" << std::endl;
 }

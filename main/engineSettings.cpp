@@ -17,37 +17,29 @@
    limitations under the License.
 */
 
-#define PLAT_X11
-#ifdef PLAT_X11
-#include "../platform/engine-x11.hpp"
-#endif
+#include "engineSettings.hpp"
 
-#include <SDL2/SDL.h>
+EngineSettings::EngineSettings(){}
+EngineSettings::~EngineSettings(){}
 
-int main()
+bool EngineSettings::LoadFromFile()
 {
-    Engine *engine = new Engine();
+    //TODO: load enginesettings from config file
+    return false;
+}
 
-    engine->initialize("Hydrogen Engine");
 
-    while(engine->isRunning())
-    {
-        SDL_Event event;
-		while (SDL_PollEvent(&event))
-        {
-            if(event.type == SDL_QUIT)
-            {
-                engine->quit();
-                break;
-            }
-            else
-            {
-                engine->render();
-            }
-        }
-    }
+const char* EngineSettings::GetTitle()
+{
+    return productTitle;
+}
 
-    engine->~Engine();
+int EngineSettings::GetResX()
+{
+    return resolutionX;
+}
 
-    return 0;
+int EngineSettings::GetResY()
+{
+    return resolutionY;
 }

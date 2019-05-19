@@ -17,37 +17,28 @@
    limitations under the License.
 */
 
-#define PLAT_X11
-#ifdef PLAT_X11
-#include "../platform/engine-x11.hpp"
+#ifndef ENGINESETTINGS_HPP
+#define ENGINESETTINGS_HPP
+
+class EngineSettings{
+    public:
+        EngineSettings();
+        ~EngineSettings();
+
+        //load settings from an ini file
+        bool LoadFromFile();
+
+        //returns the product title
+        const char* GetTitle();
+        //returns the resolution along the X axis
+        int GetResX();
+        //returns the resolution along the Y axis
+        int GetResY();
+
+    private:
+        const char* productTitle = "Hydrogen Engine";
+        int resolutionX = 640;
+        int resolutionY = 480;
+};
+
 #endif
-
-#include <SDL2/SDL.h>
-
-int main()
-{
-    Engine *engine = new Engine();
-
-    engine->initialize("Hydrogen Engine");
-
-    while(engine->isRunning())
-    {
-        SDL_Event event;
-		while (SDL_PollEvent(&event))
-        {
-            if(event.type == SDL_QUIT)
-            {
-                engine->quit();
-                break;
-            }
-            else
-            {
-                engine->render();
-            }
-        }
-    }
-
-    engine->~Engine();
-
-    return 0;
-}
