@@ -38,10 +38,11 @@ bool Engine::isRunning()
 void Engine::initialize(const char* title)
 {
     settings = new EngineSettings();
+    settings->LoadFromFile("config.ini");
 
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
-        window = SDL_CreateWindow(settings->GetTitle(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, settings->GetResX(), settings->GetResY(), SDL_WINDOW_OPENGL);
+        window = SDL_CreateWindow(settings->productTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, settings->resolutionX, settings->resolutionY, SDL_WINDOW_OPENGL);
 
         if(!window)
         {

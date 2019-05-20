@@ -20,24 +20,21 @@
 #ifndef ENGINESETTINGS_HPP
 #define ENGINESETTINGS_HPP
 
+#include <string>
+
 class EngineSettings{
     public:
         EngineSettings();
         ~EngineSettings();
 
         //load settings from an ini file
-        bool LoadFromFile();
+        bool LoadFromFile(const char* filename);
 
-        //returns the product title
-        const char* GetTitle();
-        //returns the resolution along the X axis
-        int GetResX();
-        //returns the resolution along the Y axis
-        int GetResY();
-
-    private:
-        const char* productTitle = "Hydrogen Engine";
+        //title of this product
+        std::string productTitle = "";
+        //resolution along the X axis
         int resolutionX = 640;
+        //resolution along the Y axis
         int resolutionY = 480;
 };
 

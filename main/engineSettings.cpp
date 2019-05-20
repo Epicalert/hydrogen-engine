@@ -17,29 +17,44 @@
    limitations under the License.
 */
 
+#include <string.h>
+#include <iostream>
+
 #include "engineSettings.hpp"
+#include "../thirdparty/inih/ini.h"
 
 EngineSettings::EngineSettings(){}
 EngineSettings::~EngineSettings(){}
 
-bool EngineSettings::LoadFromFile()
+static int iniSettingsCallback(void* user, const char* section, const char* name, const char* value)
+{
+    EngineSettings* target = (EngineSettings*) user;
+
+    #define NAMEIS(n) strcmp(name, n) == 0
+
+    if(NAMEIS("product_title"))
+    {
+        target->productTitle = value;
+        std::cout << value << std::endl;
+    }
+    else if (NAMEIS("resolution_x"))
+    {
+        target->resolutionX = std::stoi(value);
+    }
+    else if (NAMEIS("resolution_y"))
+    {
+        target->resolutionY = std::stoi(value);
+    }
+
+    std::cout << "loading" << std::endl;
+}
+
+bool EngineSettings::LoadFromFile(const char* filename)
 {
     //TODO: load enginesettings from config file
+    ini_parse(filename, iniSettingsCallback, this);
+
+    std::cout << productTitle << std::endl;
+
     return false;
-}
-
-
-const char* EngineSettings::GetTitle()
-{
-    return productTitle;
-}
-
-int EngineSettings::GetResX()
-{
-    return resolutionX;
-}
-
-int EngineSettings::GetResY()
-{
-    return resolutionY;
 }
