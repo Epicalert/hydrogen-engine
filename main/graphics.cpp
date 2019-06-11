@@ -75,8 +75,8 @@ int hLoadShader(const char* filename)
     //load file data
     std::string fnameString = std::string(filename);
 
-    std::string vertCode = hLoadTextFile(fnameString + ".vert");
-    std::string fragCode = hLoadTextFile(fnameString + ".frag");
+    std::string vertCode = hLoadTextFile(fnameString + "-vert.glsl");
+    std::string fragCode = hLoadTextFile(fnameString + "-frag.glsl");
 
     char* vertSrc = const_cast<char*>(vertCode.c_str());
     char* fragSrc = const_cast<char*>(fragCode.c_str());
