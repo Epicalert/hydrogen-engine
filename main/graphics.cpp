@@ -24,11 +24,18 @@
 #include <iostream>
 #include <ios>
 
+#include <glm/common.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/vec4.hpp>
+#include <glm/ext.hpp>
+
 #include "graphics.hpp"
 
 const int vboCount = 1;
 GLuint vbo[vboCount];
 GLuint vao[1];
+
+glm::mat4 modelViewProjection;
 
 const GLfloat testTri[3][3] = 
 {
@@ -36,6 +43,7 @@ const GLfloat testTri[3][3] =
     {0.5, 1.0, 0.0},
     {1.0, 0.0, 0.0}
 };
+int shaderId = 0;
 
 void hInitGraphics()
 {
@@ -45,9 +53,14 @@ void hInitGraphics()
 
     hPrepareBuffers();
 
-    int shaderId = hLoadShader("white-unlit");
+    shaderId = hLoadShader("white-unlit");
     glBindAttribLocation(shaderId, 0, "in_Position");
     glUseProgram(shaderId);
+
+    hCalculateMVP();
+
+    int mvpId = glGetUniformLocation(shaderId, "mvpMatrix");
+    glUniformMatrix4fv(mvpId, 1, GL_FALSE, &modelViewProjection[0][0]);
 }
 
 void hCleanupGraphics()
@@ -61,13 +74,15 @@ void hCleanupGraphics()
 
 void hPrepareBuffers()
 {
+    hCalculateMVP();
+
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
     glBufferData(GL_ARRAY_BUFFER, (3*3) * sizeof(GLfloat), testTri, GL_STATIC_DRAW);
 
-    const int positionAttributeIndex = 0;
+    const int attribIndexPosition = 0;
 
-    glVertexAttribPointer(positionAttributeIndex, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(positionAttributeIndex);
+    glVertexAttribPointer(attribIndexPosition, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray(attribIndexPosition);
 }
 
 int hLoadShader(const char* filename)
@@ -124,4 +139,27 @@ std::string hLoadTextFile(std::string filename)
     std::string contents = buffer.str();
 
     return contents;
+}
+
+void hCalculateMVP()
+{
+    glm::mat4 model = glm::translate( glm::vec3(0,0,0) );
+ 
+    glm::mat4 view = glm::lookAt
+    (
+        glm::vec3(0, 0, -2),    //camera position
+        glm::vec3(0, 0, 0),     //look target position
+        glm::vec3(0, 1, 0)      //up vector
+    );
+
+    //TODO: use resolution from config for aspect ratio
+    glm::mat4 projection = glm::perspective
+    (
+        70.0f,              //fov
+        640.0f/480.0f,      //aspect ratio
+        0.1f,               //near clip
+        100.0f              //far clip
+    );
+ 
+    modelViewProjection = projection * view * model;
 }

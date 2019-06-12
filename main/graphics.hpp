@@ -35,4 +35,7 @@ int hLoadShader(const char* filename);
 //loads a text file and returns its contents
 std::string hLoadTextFile(std::string filename);
 
+//calculates Model View Projection matrix
+void hCalculateMVP();
+
 #endif
