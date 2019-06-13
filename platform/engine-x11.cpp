@@ -88,6 +88,8 @@ void Engine::quit()
 
 void Engine::render()
 {
+    hCalculateMVP((float)settings->resolutionX / (float)settings->resolutionY);
+
     glClearColor(0,0,1,1);
     glClear(GL_COLOR_BUFFER_BIT);
 

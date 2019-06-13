@@ -56,11 +56,6 @@ void hInitGraphics()
     shaderId = hLoadShader("white-unlit");
     glBindAttribLocation(shaderId, 0, "in_Position");
     glUseProgram(shaderId);
-
-    hCalculateMVP();
-
-    int mvpId = glGetUniformLocation(shaderId, "mvpMatrix");
-    glUniformMatrix4fv(mvpId, 1, GL_FALSE, &modelViewProjection[0][0]);
 }
 
 void hCleanupGraphics()
@@ -74,8 +69,6 @@ void hCleanupGraphics()
 
 void hPrepareBuffers()
 {
-    hCalculateMVP();
-
     glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
     glBufferData(GL_ARRAY_BUFFER, (3*3) * sizeof(GLfloat), testTri, GL_STATIC_DRAW);
 
@@ -141,7 +134,7 @@ std::string hLoadTextFile(std::string filename)
     return contents;
 }
 
-void hCalculateMVP()
+void hCalculateMVP(float aspectRatio)
 {
     glm::mat4 model = glm::translate( glm::vec3(0,0,0) );
  
@@ -152,14 +145,16 @@ void hCalculateMVP()
         glm::vec3(0, 1, 0)      //up vector
     );
 
-    //TODO: use resolution from config for aspect ratio
     glm::mat4 projection = glm::perspective
     (
         70.0f,              //fov
-        640.0f/480.0f,      //aspect ratio
+        aspectRatio,      //aspect ratio
         0.1f,               //near clip
         100.0f              //far clip
     );
  
     modelViewProjection = projection * view * model;
+
+    int mvpId = glGetUniformLocation(shaderId, "mvpMatrix");
+    glUniformMatrix4fv(mvpId, 1, GL_FALSE, &modelViewProjection[0][0]);
 }

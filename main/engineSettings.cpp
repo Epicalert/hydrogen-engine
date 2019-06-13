@@ -51,7 +51,6 @@ static int iniSettingsCallback(void* user, const char* section, const char* name
 
 bool EngineSettings::LoadFromFile(const char* filename)
 {
-    //TODO: load enginesettings from config file
     ini_parse(filename, iniSettingsCallback, this);
 
     std::cout << productTitle << std::endl;
