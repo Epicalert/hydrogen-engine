@@ -35,16 +35,18 @@ int main()
         SDL_Event event;
 		while (SDL_PollEvent(&event))
         {
-            if(event.type == SDL_QUIT)
+            switch(event.type)
             {
+            case SDL_QUIT:
                 engine->quit();
                 break;
-            }
-            else
-            {
-                engine->render();
+            
+            default:
+                break;
             }
         }
+
+        engine->render();
     }
 
     engine->~Engine();
