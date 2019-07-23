@@ -21,6 +21,8 @@
 #define ENGINE_HPP
 
 #include <SDL2/SDL.h>
+#include <glm/vec3.hpp>
+
 #include "../main/engineSettings.hpp"
 
 class Engine{
@@ -38,6 +40,8 @@ class Engine{
 
         //renders a frame (call in main loop, once per frame)
         void render();
+
+        glm::vec3 cameraPosition = glm::vec3(0,0,0);
     private:
         bool running = true;
         

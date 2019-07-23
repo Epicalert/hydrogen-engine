@@ -23,12 +23,15 @@
 #endif
 
 #include <SDL2/SDL.h>
+#include <glm/vec3.hpp>
 
 int main(int argc, char *argv[])
 {
     Engine *engine = new Engine();
 
     engine->initialize("Hydrogen Engine");
+
+    engine->cameraPosition = glm::vec3(5,2,5);
 
     while(engine->isRunning())
     {
@@ -37,12 +40,12 @@ int main(int argc, char *argv[])
         {
             switch(event.type)
             {
-            case SDL_QUIT:
-                engine->quit();
-                break;
+                case SDL_QUIT:
+                    engine->quit();
+                    break;
             
-            default:
-                break;
+                default:
+                    break;
             }
         }
 

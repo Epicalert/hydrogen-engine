@@ -36,6 +36,6 @@ int hLoadShader(const char* filename);
 std::string hLoadTextFile(std::string filename);
 
 //calculates Model View Projection matrix
-void hCalculateMVP(float aspectRatio);
+void hCalculateMVP(float aspectRatio, glm::vec3 cameraPos);
 
 #endif

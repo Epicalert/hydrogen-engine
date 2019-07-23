@@ -135,13 +135,13 @@ std::string hLoadTextFile(std::string filename)
     return contents;
 }
 
-void hCalculateMVP(float aspectRatio)
+void hCalculateMVP(float aspectRatio, glm::vec3 cameraPos)
 {
     glm::mat4 model = glm::translate(glm::mat4(1),  glm::vec3(0,0,0) );
  
     glm::mat4 view = glm::lookAt
     (
-        glm::vec3(0, 0, -2),    //camera position
+        cameraPos,    //camera position
         glm::vec3(0, 0, 0),     //look target position
         glm::vec3(0, 1, 0)      //up vector
     );
