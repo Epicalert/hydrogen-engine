@@ -28,6 +28,7 @@
 #include <glm/mat4x4.hpp>
 #include <glm/vec4.hpp>
 #include <glm/ext.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "graphics.hpp"
 
@@ -136,7 +137,7 @@ std::string hLoadTextFile(std::string filename)
 
 void hCalculateMVP(float aspectRatio)
 {
-    glm::mat4 model = glm::translate( glm::vec3(0,0,0) );
+    glm::mat4 model = glm::translate(glm::mat4(1),  glm::vec3(0,0,0) );
  
     glm::mat4 view = glm::lookAt
     (
