@@ -20,6 +20,8 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 
+#include <chrono>
+
 #include <SDL2/SDL.h>
 #include <glm/vec3.hpp>
 
@@ -42,6 +44,8 @@ class Engine{
         void render();
 
         glm::vec3 cameraPosition = glm::vec3(0,0,0);
+
+        float deltaTime = 0;
     private:
         bool running = true;
         
@@ -49,5 +53,8 @@ class Engine{
         SDL_GLContext *glcontext;
 
         EngineSettings *settings;
+
+        std::chrono::system_clock chronoTimer;
+        std::chrono::system_clock::time_point frameStartTime = chronoTimer.now();
 };
 #endif

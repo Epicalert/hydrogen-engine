@@ -96,4 +96,11 @@ void Engine::render()
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
     SDL_GL_SwapWindow(window);
+
+    // get delta time in microseconds
+    deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(chronoTimer.now() - frameStartTime).count();
+    // and convert to seconds
+    deltaTime /= 1000000.0f;
+
+    frameStartTime = chronoTimer.now();
 }
