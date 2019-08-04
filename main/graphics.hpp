@@ -29,6 +29,8 @@ void hCleanupGraphics();
 
 //prepares buffers and enables them
 void hPrepareBuffers();
+//prints any shader/program errors to stdout
+void hCheckShader(int obj);
 //loads a shader and returns its id
 int hLoadShader(const char* filename);
 

@@ -44,7 +44,7 @@ const GLfloat testTri[3][3] =
     {0.5, 1.0, 0.0},
     {1.0, 0.0, 0.0}
 };
-int shaderId = 0;
+int shaderId = -1;
 
 void hInitGraphics()
 {
@@ -79,6 +79,35 @@ void hPrepareBuffers()
     glEnableVertexAttribArray(attribIndexPosition);
 }
 
+void hCheckShader(int obj)
+{
+    GLint status = GL_FALSE;
+    
+    if(glIsShader(obj)) 
+    {
+        glGetShaderiv(obj, GL_COMPILE_STATUS, &status);
+    }
+    if(glIsProgram(obj)) 
+    {
+        glGetProgramiv(obj, GL_LINK_STATUS, &status);
+    }
+
+    if(status == GL_TRUE) return;
+    
+    GLchar log[ 1 << 15 ] = { 0 };
+    
+    if(glIsShader(obj))
+    {
+        glGetShaderInfoLog( obj, sizeof(log), NULL, log );
+    }
+    if(glIsProgram(obj))
+    {
+        glGetProgramInfoLog( obj, sizeof(log), NULL, log );
+    }
+
+    std::cerr << "Shader failed to compile!" << std::endl << log << std::endl;
+}
+
 int hLoadShader(const char* filename)
 {
     //load file data
@@ -104,15 +133,19 @@ int hLoadShader(const char* filename)
     glCompileShader(fragShaderId);
 
     //link shaders into one shader program
-    int shaderId = glCreateProgram();
+    int loadedShaderId = glCreateProgram();
 
-    glAttachShader(shaderId, vertShaderId);
-    glAttachShader(shaderId, fragShaderId);
+    glAttachShader(loadedShaderId, vertShaderId);
+    glAttachShader(loadedShaderId, fragShaderId);
 
-    glLinkProgram(shaderId);
+    glLinkProgram(loadedShaderId);
+
+    hCheckShader(vertShaderId);
+    hCheckShader(fragShaderId);
+    hCheckShader(loadedShaderId);
 
     //return the shader program's id
-    return shaderId;
+    return loadedShaderId;
 }
 
 std::string hLoadTextFile(std::string filename)
