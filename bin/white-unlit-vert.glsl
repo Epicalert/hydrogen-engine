@@ -1,4 +1,4 @@
-#version 150
+#version 130
 
 //in_Position was bound to attribute index 0
 in vec3 in_Position;
