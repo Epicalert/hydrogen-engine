@@ -22,8 +22,12 @@
 #include "../platform/engine-x11.hpp"
 #endif
 
+#include "input.hpp"
+
 #include <SDL2/SDL.h>
 #include <glm/vec3.hpp>
+
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -43,9 +47,15 @@ int main(int argc, char *argv[])
                 case SDL_QUIT:
                     engine->quit();
                     break;
-            
-                default:
+
+                case SDL_KEYDOWN:
+                    hKeyDownEvent(event.key.keysym.sym);
                     break;
+
+                case SDL_KEYUP:
+                    hKeyUpEvent(event.key.keysym.sym);
+                    break;
+
             }
         }
 

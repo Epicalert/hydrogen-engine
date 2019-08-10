@@ -8,7 +8,7 @@ CPPFLAGS = -std=c++11 `$(CROSS)sdl2-config --cflags` `$(PKG_CONFIG) --cflags gle
 LDFLAGS = -shared
 LDLIBS = -lstdc++ `$(CROSS)sdl2-config --libs` `$(PKG_CONFIG) --libs glew` -lm -lSDL2_image -ljpeg -lpng -lwebp -lz
 
-CPPOBJ = main/engineSettings.o main/graphics.o main/main.o platform/engine-x11.o
+CPPOBJ = main/engineSettings.o main/graphics.o main/input.o main/main.o platform/engine-x11.o
 
 CCOBJ = thirdparty/inih/ini.o
 
