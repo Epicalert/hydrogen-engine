@@ -26,6 +26,7 @@
 #include <glm/vec3.hpp>
 
 #include "../main/engineSettings.hpp"
+#include "../main/camMovement.hpp"
 
 class Engine{
     public:
@@ -43,7 +44,7 @@ class Engine{
         //renders a frame (call in main loop, once per frame)
         void render();
 
-        glm::vec3 cameraPosition = glm::vec3(0,0,0);
+        glm::vec3 cameraPosition = glm::vec3(0,-5,0);
 
         float deltaTime = 0;
     private:
