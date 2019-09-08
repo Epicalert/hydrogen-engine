@@ -35,8 +35,6 @@ int main(int argc, char *argv[])
 
     engine->initialize("Hydrogen Engine");
 
-    engine->cameraPosition = glm::vec3(5,2,5);
-
     while(engine->isRunning())
     {
         SDL_Event event;

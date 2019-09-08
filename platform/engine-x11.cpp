@@ -104,5 +104,5 @@ void Engine::render()
 
     frameStartTime = chronoTimer.now();
 
-    cameraPosition += hGetWASDMovement();
+    cameraPosition += hGetWASDMovement() * deltaTime * 20.0f;
 }
