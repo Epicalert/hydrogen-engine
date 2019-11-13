@@ -22,3 +22,18 @@ glm::vec3 hGetWASDMovement()
 
     return deltaPos;
 }
+
+glm::vec3 hGetQEMovement()
+{
+    glm::vec3 deltaPos = glm::vec3(0,0,0);
+    if (hIsKeyDown(SDLK_q))
+    {
+        deltaPos += glm::vec3(0,-1,0);
+    }
+    if (hIsKeyDown(SDLK_e))
+    {
+        deltaPos += glm::vec3(0,1,0);
+    }
+
+    return deltaPos * 0.5f;
+}
