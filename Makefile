@@ -12,12 +12,12 @@ CPPOBJ = main/engineSettings.o main/graphics.o main/input.o main/main.o platform
 
 CCOBJ = thirdparty/inih/ini.o
 
-all: bin/HydrogenEngine
+all: HydrogenEngine
 
 # binary
 # for compiling on windows, set EXESUFFIX=.exe
-bin/HydrogenEngine: $(CPPOBJ) $(CCOBJ)
-	$(CXX) $(CPPFLAGS) -o bin/HydrogenEngine$(EXESUFFIX) $(CPPOBJ) $(CCOBJ) $(LDLIBS)
+HydrogenEngine: $(CPPOBJ) $(CCOBJ)
+	$(CXX) $(CPPFLAGS) -o HydrogenEngine$(EXESUFFIX) $(CPPOBJ) $(CCOBJ) $(LDLIBS)
 
 main/camMovement.cpp: main/camMovement.hpp main/input.hpp
 main/engineSettings.cpp: main/engineSettings.hpp thirdparty/inih/ini.h
@@ -27,4 +27,4 @@ main/main.cpp: platform/engine-x11.hpp
 platform/engine-x11.cpp: platform/engine-x11.hpp main/graphics.hpp
 
 clean:
-	$(RM) $(CPPOBJ) $(CCOBJ) bin/HydrogenEngine
+	$(RM) $(CPPOBJ) $(CCOBJ) HydrogenEngine

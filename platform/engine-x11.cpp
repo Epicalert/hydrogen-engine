@@ -39,13 +39,13 @@ bool Engine::isRunning()
 void Engine::initialize(const char* title)
 {
     settings = new EngineSettings();
-    settings->LoadFromFile("config.ini");
+    settings->LoadFromFile("res/config.ini");
 
     if(SDL_Init(SDL_INIT_EVERYTHING) == 0)
     {
         window = SDL_CreateWindow(settings->productTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, settings->resolutionX, settings->resolutionY, SDL_WINDOW_OPENGL);
 
-        SDL_Surface* icon = IMG_Load("icon.png");
+        SDL_Surface* icon = IMG_Load("res/icon.png");
         SDL_SetWindowIcon(window, icon);
 
         if(!window)
